@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
     "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.3",
     "@types/node": "^14.0.14",
@@ -32,5 +33,10 @@
     "lint-staged": "^10.2.11",
     "ts-jest": "^26.1.1",
     "typescript": "^3.9.5"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+    ]
   }
 }
