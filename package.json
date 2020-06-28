@@ -35,7 +35,10 @@
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
     "ts-jest": "^26.1.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "jest": {
     "transformIgnorePatterns": [
