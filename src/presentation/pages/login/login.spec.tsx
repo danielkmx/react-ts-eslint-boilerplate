@@ -2,6 +2,7 @@ import React from 'react'
 import { render , RenderResult ,fireEvent,cleanup } from '@testing-library/react'
 import Login from './login'
 import ValidationSpy from '@/presentation/test/mock-validation'
+import faker from 'faker'
 
 type SutTypes = {
   sut: RenderResult
@@ -36,16 +37,18 @@ describe('Login component' , () => {
   test('Should validate correct email' , () => {
     const { sut: { getByTestId } , validationSpy } = makeSut()
     const emailInput = getByTestId('email')
-    fireEvent.input(emailInput,{ target: { value: 'any_email' } })
+    const emailFake = faker.internet.email()
+    fireEvent.input(emailInput,{ target: { value: emailFake } })
     expect(validationSpy.fieldName).toEqual('email')
-    expect(validationSpy.fieldValue).toEqual('any_email')
+    expect(validationSpy.fieldValue).toEqual(emailFake)
   })
 
   test('Should validate correct password' , () => {
     const { sut: { getByTestId } , validationSpy } = makeSut()
     const passwordInput = getByTestId('password')
-    fireEvent.input(passwordInput,{ target: { value: 'any_password' } })
+    const passwordFaker = faker.internet.password()
+    fireEvent.input(passwordInput,{ target: { value: passwordFaker } })
     expect(validationSpy.fieldName).toEqual('password')
-    expect(validationSpy.fieldValue).toEqual('any_password')
+    expect(validationSpy.fieldValue).toEqual(passwordFaker)
   })
 })
