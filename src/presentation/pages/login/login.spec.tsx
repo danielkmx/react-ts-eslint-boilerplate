@@ -53,4 +53,22 @@ describe('Login component' , () => {
     const emailStatus = getByTestId('password-status')
     expect(emailStatus.title).toBe(validationStub.errorMessage)
   })
+
+  test('Should show valid password state if Vadalidation succeds' , () => {
+    const { sut: { getByTestId } , validationStub } = makeSut()
+    validationStub.errorMessage = null
+    const passwordInput = getByTestId('password')
+    fireEvent.input(passwordInput,{ target: { value: faker.internet.email() } })
+    const emailStatus = getByTestId('password-status')
+    expect(emailStatus.title).toBe('')
+  })
+
+  test('Should show valid password state if Vadalidation succeds' , () => {
+    const { sut: { getByTestId } , validationStub } = makeSut()
+    validationStub.errorMessage = null
+    const emailInput = getByTestId('email')
+    fireEvent.input(emailInput,{ target: { value: faker.internet.email() } })
+    const emailStatus = getByTestId('email-status')
+    expect(emailStatus.title).toBe('')
+  })
 })
