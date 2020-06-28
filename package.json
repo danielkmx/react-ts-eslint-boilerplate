@@ -15,6 +15,7 @@
   "license": "ISC",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
     "@types/axios": "^0.14.0",
     "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.3",
