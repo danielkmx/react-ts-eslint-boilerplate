@@ -48,22 +48,7 @@ body{
     flex-direction: column;
     height: 100vh;
     justify-content: space-between;
-    .header{
-        background-color: $primary;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        border-top: 40px;
-
-        img{
-            height: 20px;
-            margin-top: 20px;
-        }
-        h1 {
-            color: $white;
-            margin: 16px 0px 20px;
-        }
-    }
+   
     .form{
         width: 400px;
         background-color: $white;
@@ -81,10 +66,7 @@ body{
             text-transform: uppercase;
         }
     }
-    .footer{
-        background-color: $primary;
-        height: 40px;
-    }
+    
     .inputWrap{
         margin: 16px;
         display: flex;
