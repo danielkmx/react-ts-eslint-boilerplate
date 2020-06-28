@@ -1,7 +1,7 @@
 import React from 'react'
 import { render , RenderResult ,fireEvent,cleanup } from '@testing-library/react'
 import Login from './login'
-import { Validation } from '@/protocols/validation'
+import { Validation } from '@/presentation/protocols/validation'
 
 type SutTypes = {
   sut: RenderResult
