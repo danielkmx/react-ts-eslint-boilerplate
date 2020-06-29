@@ -128,11 +128,17 @@ describe('Login component' , () => {
   test('Should call auth only once' , () => {
     const { sut, validationStub, authenticationSpy } = makeSut()
     validationStub.errorMessage = null
-    const email = faker.internet.email()
-    const password = faker.internet.password()
-    simulateValidSubmit(sut,validationStub,email,password)
-    simulateValidSubmit(sut,validationStub,email,password)
+    simulateValidSubmit(sut,validationStub)
+    simulateValidSubmit(sut,validationStub)
 
     expect(authenticationSpy.callsCount).toBe(1)
+  })
+  test('Should not call auth if form is invalid' , () => {
+    const { sut, validationStub, authenticationSpy } = makeSut()
+    validationStub.errorMessage = faker.random.words()
+    populateEmail(sut)
+    fireEvent.submit(sut.getByTestId('form'))
+
+    expect(authenticationSpy.callsCount).toBe(0)
   })
 })
