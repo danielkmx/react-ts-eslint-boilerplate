@@ -11,6 +11,7 @@ type Props = {
 }
 
 const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+  const x = '1'
   const [state,setState] = useState({
     isLoading: false,
     email: '',
@@ -29,6 +30,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   },[state.email,state.password])
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
+    console.log(x)
     setState({
       ...state,
       isLoading: true
