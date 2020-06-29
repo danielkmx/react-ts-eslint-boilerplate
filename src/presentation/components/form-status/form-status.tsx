@@ -8,7 +8,6 @@ type Props = React.HTMLAttributes<HTMLElement>
 const FormStatus: React.FC<Props> = (props: Props) => {
   const { state } = useContext(Context)
   const { isLoading, errorMessage } = state
-  console.log(isLoading)
   return (
     <div data-testid="error-wrap" className={Styles.errorWrap}>
       { isLoading &&
