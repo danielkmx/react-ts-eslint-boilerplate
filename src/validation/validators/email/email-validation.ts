@@ -1,7 +1,7 @@
 import { InvalidFieldError } from '@/validation/errors'
 import FieldValidation from '@/validation/protocol/field-validation'
 
-class EmailValidation implements FieldValidation {
+export class EmailValidation implements FieldValidation {
   constructor (readonly field: string) {
   }
 

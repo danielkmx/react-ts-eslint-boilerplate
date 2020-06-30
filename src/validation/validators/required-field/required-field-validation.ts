@@ -1,7 +1,7 @@
 import FieldValidation from '../../protocol/field-validation'
 import { RequiredFieldError } from '@/validation/errors'
 
-class RequiredFieldValidation implements FieldValidation {
+export class RequiredFieldValidation implements FieldValidation {
   constructor (readonly field: string) {
 
   }
@@ -10,5 +10,3 @@ class RequiredFieldValidation implements FieldValidation {
     return value ? null : new RequiredFieldError()
   }
 }
-
-export default RequiredFieldValidation
