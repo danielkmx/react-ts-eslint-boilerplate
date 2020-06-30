@@ -7,13 +7,14 @@ type Props = React.HTMLAttributes<HTMLElement>
 
 const FormStatus: React.FC<Props> = (props: Props) => {
   const { state } = useContext(Context)
-  const { isLoading, errorMessage } = state
+  const { isLoading, mainError } = state
+  console.log(state)
   return (
     <div data-testid="error-wrap" className={Styles.errorWrap}>
       { isLoading &&
       <Spinner className={Styles.spinner} />
       }
-      { errorMessage && <span className={Styles.error}>{errorMessage}</span> }
+      { mainError && <span data-testid="main-error" className={Styles.error}>{mainError}</span> }
 
     </div>
   )

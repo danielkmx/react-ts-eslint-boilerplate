@@ -1,5 +1,5 @@
 import React from 'react'
-import { render , RenderResult ,fireEvent,cleanup } from '@testing-library/react'
+import { render , RenderResult ,fireEvent } from '@testing-library/react'
 import Login from './login'
 import { ValidationStub,AuthenticationSpy } from '@/presentation/test/'
 import faker from 'faker'
@@ -43,7 +43,6 @@ const populatePassword = (sut: RenderResult, password = faker.internet.password(
 }
 
 describe('Login component' , () => {
-  afterEach(cleanup)
   test('Should start with initial state' , () => {
     const validationError = faker.random.words()
     const { sut: { getByTestId } , validationStub } = makeSut({ validationError })
@@ -141,4 +140,18 @@ describe('Login component' , () => {
 
     expect(authenticationSpy.callsCount).toBe(0)
   })
+  // test('mostrar erro caso autenticacao falhe' , async () => {
+  //   const { sut, validationStub, authenticationSpy } = makeSut()
+  //   const error = new InvalidCredentialsError()
+  //   jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error)
+  //   const errorWrap = sut.getByTestId('error-wrap')
+  //   await waitFor(() => errorWrap)
+  //   act(() => {
+  //     simulateValidSubmit(sut,validationStub)
+  //   })
+  //   const mainError = sut.getByTestId('main-error')
+  //   expect(mainError.textContent).toBe(error.message)
+
+  //   expect(errorWrap.childElementCount).toBe(1)
+  // })
 })
