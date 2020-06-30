@@ -1,4 +1,4 @@
-export class InvalidEmailError extends Error {
+export class InvalidFieldError extends Error {
   constructor () {
     super('campo inválido')
   }

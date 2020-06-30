@@ -1,4 +1,4 @@
-import { InvalidEmailError } from '@/validation/errors'
+import { InvalidFieldError } from '@/validation/errors'
 import FieldValidation from '@/validation/protocol/field-validation'
 
 class EmailValidation implements FieldValidation {
@@ -7,7 +7,7 @@ class EmailValidation implements FieldValidation {
 
   validate (value: string): Error {
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return emailRegex.test(value) ? null : new InvalidEmailError()
+    return emailRegex.test(value) ? null : new InvalidFieldError()
   }
 }
 
