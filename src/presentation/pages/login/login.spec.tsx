@@ -33,13 +33,14 @@ const makeSut = (params?: SutParams): SutTypes => {
     authenticationSpy
   }
 }
-const simulateValidSubmit = (sut: RenderResult,validationStub, email = faker.internet.email() , password = faker.internet.password()): void => {
+const simulateValidSubmit = async (sut: RenderResult,validationStub, email = faker.internet.email() , password = faker.internet.password()): Promise<void> => {
   const { getByTestId } = sut
   validationStub.errorMessage = null
   populateEmail(sut,email)
   populatePassword(sut,password)
-  const submitButton = getByTestId('submit')
-  fireEvent.click(submitButton)
+  const form = getByTestId('form')
+  fireEvent.submit(form)
+  await waitFor(() => form)
 }
 const populateEmail = (sut: RenderResult, email = faker.internet.email()): void => {
   const emailInput = sut.getByTestId('email')
@@ -114,32 +115,32 @@ describe('Login component' , () => {
     expect(submitButton.disabled).toBe(false)
   })
 
-  test('Should show spinner on submit' , () => {
+  test('Should show spinner on submit' , async () => {
     const { sut, validationStub } = makeSut()
     const { getByTestId } = sut
-    simulateValidSubmit(sut,validationStub)
+    await simulateValidSubmit(sut,validationStub)
     const spinner = getByTestId('spinner')
 
     expect(spinner).toBeTruthy()
   })
 
-  test('Should call auth with correct values' , () => {
+  test('Should call auth with correct values' , async () => {
     const { sut, validationStub, authenticationSpy } = makeSut()
     validationStub.errorMessage = null
     const email = faker.internet.email()
     const password = faker.internet.password()
-    simulateValidSubmit(sut,validationStub,email,password)
+    await simulateValidSubmit(sut,validationStub,email,password)
 
     expect(authenticationSpy.params).toEqual({
       email,
       password
     })
   })
-  test('Should call auth only once' , () => {
+  test('Should call auth only once' , async () => {
     const { sut, validationStub, authenticationSpy } = makeSut()
     validationStub.errorMessage = null
-    simulateValidSubmit(sut,validationStub)
-    simulateValidSubmit(sut,validationStub)
+    await simulateValidSubmit(sut,validationStub)
+    await simulateValidSubmit(sut,validationStub)
 
     expect(authenticationSpy.callsCount).toBe(1)
   })
@@ -167,8 +168,7 @@ describe('Login component' , () => {
   // })
   test('Should add accessToken to localstorage on sucess' , async () => {
     const { sut, validationStub, authenticationSpy } = makeSut()
-    simulateValidSubmit(sut,validationStub)
-    await waitFor(() => sut.getByTestId('form'))
+    await simulateValidSubmit(sut,validationStub)
     expect(localStorage.setItem).toHaveBeenLastCalledWith('accessToken', authenticationSpy.account.accessToken)
     expect(history.length).toBe(1)
     expect(history.location.pathname).toBe('/')
