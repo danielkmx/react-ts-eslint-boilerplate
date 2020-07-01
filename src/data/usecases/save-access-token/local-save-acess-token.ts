@@ -1,9 +1,14 @@
-import { SaveAccessToken } from '@/domain/usecases/save-access-token'
+import { UpdateCurrentAccount } from '@/domain/usecases/update-current-account'
 import { SetStorage } from '@/data/protocols/cache/set-storage'
+import { AccountModel } from '@/domain/models'
+import { UnexpectedError } from '@/domain/errors'
 
-export class LocalSaveAccessToken implements SaveAccessToken {
+export class LocalUpdateCurrentAccount implements UpdateCurrentAccount {
   constructor (private readonly setStorage: SetStorage) {}
-  async save (accessToken: string): Promise<void> {
-    await this.setStorage.set('accessToken',accessToken)
+  async save (account: AccountModel): Promise<void> {
+    if (!account.accessToken) {
+      throw new UnexpectedError()
+    }
+    await this.setStorage.set('account',JSON.stringify(account))
   }
 }

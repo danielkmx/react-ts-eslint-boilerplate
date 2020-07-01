@@ -5,15 +5,16 @@ import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import { Authentication } from '@/domain/usecases'
 import { Link ,useHistory } from 'react-router-dom'
-import { SaveAccessToken } from '@/domain/usecases/save-access-token'
+import { UpdateCurrentAccount } from '@/domain/usecases/update-current-account'
 
 type Props = {
   validation: Validation
   authentication: Authentication
-  saveAccessToken: SaveAccessToken
+  updateCurrentAccount: UpdateCurrentAccount
 }
 
-const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccount }: Props) => {
+  console.log(localStorage)
   const history = useHistory()
   const [state,setState] = useState({
     isLoading: false,
@@ -42,7 +43,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
         isLoading: true
       })
       const account = await authentication.auth({ email: state.email,password: state.password })
-      await saveAccessToken.save(account.accessToken)
+      await updateCurrentAccount.save(account)
       history.replace('/')
     } catch (error) {
       setState({

@@ -5,13 +5,13 @@ import { createMemoryHistory } from 'history'
 import Login from './login'
 import { ValidationStub,AuthenticationSpy } from '@/presentation/test/'
 import faker from 'faker'
-import { SaveAccessTokenMock } from '@/presentation/test/mock-save-access-token'
+import { UpdateCurrentAccountMock } from '@/presentation/test'
 
 type SutTypes = {
   sut: RenderResult
   validationStub: ValidationStub
   authenticationSpy: AuthenticationSpy
-  saveAccessTokenMock: SaveAccessTokenMock
+  updateCurrentAccountMock: UpdateCurrentAccountMock
 }
 type SutParams = {
   validationError: string
@@ -19,21 +19,21 @@ type SutParams = {
 const history = createMemoryHistory({ initialEntries: ['/login'] })
 
 const makeSut = (params?: SutParams): SutTypes => {
-  const saveAccessTokenMock = new SaveAccessTokenMock()
+  const updateCurrentAccountMock = new UpdateCurrentAccountMock()
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   const errorMessage = params?.validationError
   validationStub.errorMessage = errorMessage
   const sut = render(
     <Router history={history}>
-      <Login saveAccessToken={saveAccessTokenMock} authentication={authenticationSpy} validation={validationStub} />
+      <Login updateCurrentAccount={updateCurrentAccountMock} authentication={authenticationSpy} validation={validationStub} />
     </Router>
   )
   return {
     sut,
     validationStub,
     authenticationSpy,
-    saveAccessTokenMock
+    updateCurrentAccountMock
   }
 }
 const simulateValidSubmit = async (sut: RenderResult,validationStub, email = faker.internet.email() , password = faker.internet.password()): Promise<void> => {
@@ -167,9 +167,9 @@ describe('Login component' , () => {
   //   expect(errorWrap.childElementCount).toBe(1)
   // })
   test('Should call SaveACcess token on sucess' , async () => {
-    const { sut, validationStub, authenticationSpy ,saveAccessTokenMock } = makeSut()
+    const { sut, validationStub, authenticationSpy ,updateCurrentAccountMock } = makeSut()
     await simulateValidSubmit(sut,validationStub)
-    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken)
+    expect(updateCurrentAccountMock.account).toBe(authenticationSpy.account)
     expect(history.length).toBe(1)
     expect(history.location.pathname).toBe('/')
   })
