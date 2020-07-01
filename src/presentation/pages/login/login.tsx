@@ -14,7 +14,6 @@ type Props = {
 }
 
 const Login: React.FC<Props> = ({ validation, authentication, updateCurrentAccount }: Props) => {
-  console.log(localStorage)
   const history = useHistory()
   const [state,setState] = useState({
     isLoading: false,

@@ -2,7 +2,10 @@ import { HttpResponse } from './http-response'
 
 export type HttpPostParams<T> = {
   url: string
-  body?: T
+  data: {
+    body: object
+    headers: object
+  }
 }
 
 export interface HttpPostClient<T, R> {

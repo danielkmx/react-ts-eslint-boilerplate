@@ -9,4 +9,5 @@ export enum HttpStatusCode {
 export type HttpResponse<T> = {
   statusCode: number
   body?: any
+  headers?: any
 }

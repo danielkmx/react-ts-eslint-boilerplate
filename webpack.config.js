@@ -54,7 +54,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new DefinePlugin({
-      'process.env.API_URL': ''
+      'process.env.API_URL': '',
+      'process.env.auth': ''
     })
   ]
 }

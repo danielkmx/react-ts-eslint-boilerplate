@@ -13,7 +13,8 @@ export class RemoteAuthentication implements Authentication {
   async auth (params: AuthenticationParams): Promise<AccountModel> {
     const httpResponse = await this.httpPostClient.post({
       url: this.url,
-      body: params
+      data: { body: params, headers: { Authorization: process.env.auth } }
+
     })
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body
