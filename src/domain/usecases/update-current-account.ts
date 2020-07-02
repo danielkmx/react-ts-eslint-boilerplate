@@ -1,5 +1,5 @@
-import { AccountModel } from '../models'
+import { AccountDto } from '../models/account-dto'
 
 export interface UpdateCurrentAccount {
-  save: (account: AccountModel) => Promise<void>
+  save: (account: AccountDto) => Promise<void>
 }

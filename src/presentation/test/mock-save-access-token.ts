@@ -1,9 +1,9 @@
 import { UpdateCurrentAccount } from '@/domain/usecases/update-current-account'
-import { AccountModel } from '@/domain/models'
+import { AccountDto } from '@/domain/models/account-dto'
 
 export class UpdateCurrentAccountMock implements UpdateCurrentAccount {
-  account: AccountModel
-  async save (account: AccountModel): Promise<void> {
+  account: AccountDto
+  async save (account: AccountDto): Promise<void> {
     this.account = account
   }
 }

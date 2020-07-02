@@ -1,4 +1,13 @@
 export type AccountModel = {
-  accessToken: string
-  name: string
+  body: {
+    data: {
+      email: string
+      uid: string
+    }
+  }
+  headers: {
+    'access-token': string
+    client: string
+  }
+
 }
