@@ -7,6 +7,7 @@ import { ValidationStub,AuthenticationSpy } from '@/presentation/test/'
 import faker from 'faker'
 import { ApiContext } from '@/presentation/contexts'
 import { AccountModel } from '@/domain/models'
+import { mockAccountDto } from '@/domain/test/mock-account-dto'
 
 type SutTypes = {
   sut: RenderResult
@@ -26,7 +27,7 @@ const makeSut = (params?: SutParams): SutTypes => {
   const errorMessage = params?.validationError
   validationStub.errorMessage = errorMessage
   const sut = render(
-    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
+    <ApiContext.Provider value={{ getCurrentAccount: () => mockAccountDto(),setCurrentAccount: setCurrentAccountMock }}>
       <Router history={history}>
         <Login authentication={authenticationSpy} validation={validationStub} />
       </Router>
