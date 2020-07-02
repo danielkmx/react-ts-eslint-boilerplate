@@ -2,5 +2,5 @@ import { makeLocalStorageAdapter } from '../factories/cache/local-storage-adapte
 import { AccountDto } from '@/domain/models/account-dto'
 
 export const getCurrentAccountAdapter = (): AccountDto => {
-  return makeLocalStorageAdapter.get('account')
+  return makeLocalStorageAdapter().get('account')
 }
