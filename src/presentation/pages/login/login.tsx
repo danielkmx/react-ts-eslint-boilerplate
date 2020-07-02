@@ -36,10 +36,10 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       if (state.isLoading || state.emailError || state.passwordError) {
         return
       }
-      setState({
-        ...state,
+      setState(old => ({
+        ...old,
         isLoading: true
-      })
+      }))
       const account = await authentication.auth({ email: state.email,password: state.password })
       setCurrentAccount(account)
       console.log(localStorage)
