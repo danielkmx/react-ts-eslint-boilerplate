@@ -1,10 +1,18 @@
 import { HttpPostClient } from '@/data/protocols/http/http-post.client'
 import { AuthenticationParams, Authentication } from '@/domain/usecases/authentication'
-import { HttpStatusCode } from '../../protocols/http/http-response'
+import { HttpStatusCode, HttpResponse } from '../../protocols/http/http-response'
 import { InvalidCredentialsError , UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models/account-models'
 import { AccountDto } from '@/domain/models/account-dto'
-
+const accountModelToAccountDto = (model: HttpResponse<AccountModel>): AccountDto => {
+  const { email,uid } = model.body.data
+  return {
+    email,
+    uid,
+    accessToken: model.headers['access-token'],
+    client: model.headers.client
+  }
+}
 export class RemoteAuthentication implements Authentication {
   constructor (
     private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>,
@@ -17,14 +25,8 @@ export class RemoteAuthentication implements Authentication {
       data: { body: params, headers: { Authorization: process.env.auth } }
 
     })
-    const { email,uid } = httpResponse?.body.data
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return {
-        email,
-        uid,
-        accessToken: httpResponse.headers['access-token'],
-        client: httpResponse.headers.client
-      }
+      case HttpStatusCode.ok: return accountModelToAccountDto(httpResponse)
       case HttpStatusCode.unauthorized: throw new InvalidCredentialsError()
       default: throw new UnexpectedError()
     }
